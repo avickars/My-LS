@@ -1,7 +1,10 @@
 file(REMOVE_RECURSE
   "CMPT300Assignment4"
   "CMPT300Assignment4.pdb"
+  "CMakeFiles/CMPT300Assignment4.dir/arguements.c.o"
+  "CMakeFiles/CMPT300Assignment4.dir/directory.c.o"
   "CMakeFiles/CMPT300Assignment4.dir/myls.c.o"
+  "CMakeFiles/CMPT300Assignment4.dir/printer.c.o"
 )
 
 # Per-language clean rules from dependency scanning.

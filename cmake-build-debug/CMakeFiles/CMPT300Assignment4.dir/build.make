@@ -70,17 +70,62 @@ CMakeFiles/CMPT300Assignment4.dir/myls.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CMPT300Assignment4.dir/myls.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/aidan/Documents/GitRepositories/CMPT300Assignment4/myls.c -o CMakeFiles/CMPT300Assignment4.dir/myls.c.s
 
+CMakeFiles/CMPT300Assignment4.dir/arguements.c.o: CMakeFiles/CMPT300Assignment4.dir/flags.make
+CMakeFiles/CMPT300Assignment4.dir/arguements.c.o: ../arguements.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aidan/Documents/GitRepositories/CMPT300Assignment4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/CMPT300Assignment4.dir/arguements.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/CMPT300Assignment4.dir/arguements.c.o   -c /home/aidan/Documents/GitRepositories/CMPT300Assignment4/arguements.c
+
+CMakeFiles/CMPT300Assignment4.dir/arguements.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CMPT300Assignment4.dir/arguements.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/aidan/Documents/GitRepositories/CMPT300Assignment4/arguements.c > CMakeFiles/CMPT300Assignment4.dir/arguements.c.i
+
+CMakeFiles/CMPT300Assignment4.dir/arguements.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CMPT300Assignment4.dir/arguements.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/aidan/Documents/GitRepositories/CMPT300Assignment4/arguements.c -o CMakeFiles/CMPT300Assignment4.dir/arguements.c.s
+
+CMakeFiles/CMPT300Assignment4.dir/directory.c.o: CMakeFiles/CMPT300Assignment4.dir/flags.make
+CMakeFiles/CMPT300Assignment4.dir/directory.c.o: ../directory.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aidan/Documents/GitRepositories/CMPT300Assignment4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/CMPT300Assignment4.dir/directory.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/CMPT300Assignment4.dir/directory.c.o   -c /home/aidan/Documents/GitRepositories/CMPT300Assignment4/directory.c
+
+CMakeFiles/CMPT300Assignment4.dir/directory.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CMPT300Assignment4.dir/directory.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/aidan/Documents/GitRepositories/CMPT300Assignment4/directory.c > CMakeFiles/CMPT300Assignment4.dir/directory.c.i
+
+CMakeFiles/CMPT300Assignment4.dir/directory.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CMPT300Assignment4.dir/directory.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/aidan/Documents/GitRepositories/CMPT300Assignment4/directory.c -o CMakeFiles/CMPT300Assignment4.dir/directory.c.s
+
+CMakeFiles/CMPT300Assignment4.dir/printer.c.o: CMakeFiles/CMPT300Assignment4.dir/flags.make
+CMakeFiles/CMPT300Assignment4.dir/printer.c.o: ../printer.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aidan/Documents/GitRepositories/CMPT300Assignment4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/CMPT300Assignment4.dir/printer.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/CMPT300Assignment4.dir/printer.c.o   -c /home/aidan/Documents/GitRepositories/CMPT300Assignment4/printer.c
+
+CMakeFiles/CMPT300Assignment4.dir/printer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CMPT300Assignment4.dir/printer.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/aidan/Documents/GitRepositories/CMPT300Assignment4/printer.c > CMakeFiles/CMPT300Assignment4.dir/printer.c.i
+
+CMakeFiles/CMPT300Assignment4.dir/printer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CMPT300Assignment4.dir/printer.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/aidan/Documents/GitRepositories/CMPT300Assignment4/printer.c -o CMakeFiles/CMPT300Assignment4.dir/printer.c.s
+
 # Object files for target CMPT300Assignment4
 CMPT300Assignment4_OBJECTS = \
-"CMakeFiles/CMPT300Assignment4.dir/myls.c.o"
+"CMakeFiles/CMPT300Assignment4.dir/myls.c.o" \
+"CMakeFiles/CMPT300Assignment4.dir/arguements.c.o" \
+"CMakeFiles/CMPT300Assignment4.dir/directory.c.o" \
+"CMakeFiles/CMPT300Assignment4.dir/printer.c.o"
 
 # External object files for target CMPT300Assignment4
 CMPT300Assignment4_EXTERNAL_OBJECTS =
 
 CMPT300Assignment4: CMakeFiles/CMPT300Assignment4.dir/myls.c.o
+CMPT300Assignment4: CMakeFiles/CMPT300Assignment4.dir/arguements.c.o
+CMPT300Assignment4: CMakeFiles/CMPT300Assignment4.dir/directory.c.o
+CMPT300Assignment4: CMakeFiles/CMPT300Assignment4.dir/printer.c.o
 CMPT300Assignment4: CMakeFiles/CMPT300Assignment4.dir/build.make
 CMPT300Assignment4: CMakeFiles/CMPT300Assignment4.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/aidan/Documents/GitRepositories/CMPT300Assignment4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable CMPT300Assignment4"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/aidan/Documents/GitRepositories/CMPT300Assignment4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable CMPT300Assignment4"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CMPT300Assignment4.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

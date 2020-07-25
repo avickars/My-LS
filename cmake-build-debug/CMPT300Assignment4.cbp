@@ -76,7 +76,28 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/arguements.c">
+			<Option target="CMPT300Assignment4"/>
+		</Unit>
+		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/arguements.h">
+			<Option target="CMPT300Assignment4"/>
+		</Unit>
+		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/directory.c">
+			<Option target="CMPT300Assignment4"/>
+		</Unit>
+		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/directory.h">
+			<Option target="CMPT300Assignment4"/>
+		</Unit>
 		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/myls.c">
+			<Option target="CMPT300Assignment4"/>
+		</Unit>
+		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/optionsStruct.h">
+			<Option target="CMPT300Assignment4"/>
+		</Unit>
+		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/printer.c">
+			<Option target="CMPT300Assignment4"/>
+		</Unit>
+		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/printer.h">
 			<Option target="CMPT300Assignment4"/>
 		</Unit>
 		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/CMakeLists.txt">

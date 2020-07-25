@@ -123,6 +123,60 @@ CMPT300Assignment4/fast:
 	$(MAKE) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/build
 .PHONY : CMPT300Assignment4/fast
 
+arguements.o: arguements.c.o
+
+.PHONY : arguements.o
+
+# target to build an object file
+arguements.c.o:
+	$(MAKE) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/arguements.c.o
+.PHONY : arguements.c.o
+
+arguements.i: arguements.c.i
+
+.PHONY : arguements.i
+
+# target to preprocess a source file
+arguements.c.i:
+	$(MAKE) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/arguements.c.i
+.PHONY : arguements.c.i
+
+arguements.s: arguements.c.s
+
+.PHONY : arguements.s
+
+# target to generate assembly for a file
+arguements.c.s:
+	$(MAKE) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/arguements.c.s
+.PHONY : arguements.c.s
+
+directory.o: directory.c.o
+
+.PHONY : directory.o
+
+# target to build an object file
+directory.c.o:
+	$(MAKE) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/directory.c.o
+.PHONY : directory.c.o
+
+directory.i: directory.c.i
+
+.PHONY : directory.i
+
+# target to preprocess a source file
+directory.c.i:
+	$(MAKE) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/directory.c.i
+.PHONY : directory.c.i
+
+directory.s: directory.c.s
+
+.PHONY : directory.s
+
+# target to generate assembly for a file
+directory.c.s:
+	$(MAKE) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/directory.c.s
+.PHONY : directory.c.s
+
 myls.o: myls.c.o
 
 .PHONY : myls.o
@@ -150,6 +204,33 @@ myls.c.s:
 	$(MAKE) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/myls.c.s
 .PHONY : myls.c.s
 
+printer.o: printer.c.o
+
+.PHONY : printer.o
+
+# target to build an object file
+printer.c.o:
+	$(MAKE) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/printer.c.o
+.PHONY : printer.c.o
+
+printer.i: printer.c.i
+
+.PHONY : printer.i
+
+# target to preprocess a source file
+printer.c.i:
+	$(MAKE) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/printer.c.i
+.PHONY : printer.c.i
+
+printer.s: printer.c.s
+
+.PHONY : printer.s
+
+# target to generate assembly for a file
+printer.c.s:
+	$(MAKE) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/printer.c.s
+.PHONY : printer.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -159,9 +240,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... CMPT300Assignment4"
+	@echo "... arguements.o"
+	@echo "... arguements.i"
+	@echo "... arguements.s"
+	@echo "... directory.o"
+	@echo "... directory.i"
+	@echo "... directory.s"
 	@echo "... myls.o"
 	@echo "... myls.i"
 	@echo "... myls.s"
+	@echo "... printer.o"
+	@echo "... printer.i"
+	@echo "... printer.s"
 .PHONY : help
 
 
