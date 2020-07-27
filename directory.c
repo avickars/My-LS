@@ -34,8 +34,6 @@ void read_directory(char *dir, Options *options) {
             // CITATION: https://www.programiz.com/c-programming/examples/lexicographical-order
             read_directory(subDirectory, options); // Recursively enters read_directory again
         }
-
-        printf("************************************************************\n");
     }
     closedir(directory);
 }
