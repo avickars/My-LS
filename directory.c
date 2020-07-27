@@ -2,6 +2,7 @@
 #include <dirent.h> // For readdir()
 #include <stddef.h> // For NULL
 #include <stdio.h> // For printf()
+#include <stdlib.h> // For free()
 
 #include "optionsStruct.h"
 #include "printer.h"
@@ -10,16 +11,36 @@
 #define SIZEOFSUBDIRECTORY 1024
 
 void read_directory(char *dir, Options *options) {
-    char subDirectory[SIZEOFSUBDIRECTORY];
-    DIR *directory;
-    struct dirent *de;
-    if ((directory = opendir (dir)) == NULL) {
-        return;
-    }
+    struct dirent **namelist;
+    int n;
+
+//    n = scandir(".", &namelist, NULL, NULL);
+//    while (n--) {
+//        printf("%s\n", namelist[n]->d_name);
+//        free(namelist[n]);
+//    }
+//    free(namelist);
+//
+//    char subDirectory[SIZEOFSUBDIRECTORY];
+//    DIR *directory;
+//    struct dirent *de;
+//    if ((directory = opendir (dir)) == NULL) {
+//        return;
+//    }
 
     while ((de = readdir(directory)) != NULL) {
-        // Removing the current directory and the parent directory from output
-        if (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0) {
+        // Removing the current directory form output
+        if (strcmp(de->d_name, ".") == 0) {
+            continue;
+        }
+
+        // Removing the parent directory from output
+        if (strcmp(de->d_name, "..") == 0) {
+            continue;
+        }
+
+        // Removing hidden files from output
+        if (de->d_name[0]=='.') {
             continue;
         }
         strcpy(subDirectory, dir);

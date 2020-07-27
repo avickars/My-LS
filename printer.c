@@ -48,7 +48,7 @@ char isGroupRead(struct stat file) {
 }
 
 char isGroupWrite(struct stat file) {
-    if (file.st_mode & S_IXGRP) {
+    if (file.st_mode &  S_IWGRP) {
         return 'w';
     } else {
         return '-';
@@ -56,7 +56,7 @@ char isGroupWrite(struct stat file) {
 }
 
 char isGroupExecute(struct stat file) {
-    if (file.st_mode & S_IXUSR) {
+    if (file.st_mode & S_IXGRP) {
         return 'x';
     } else {
         return '-';
@@ -87,9 +87,6 @@ char isOthersExecute(struct stat file) {
     }
 }
 
-
-
-
 void print(char *dir, Options *options) {
     struct stat sb;
     if (lstat(dir, &sb) == -1) {
@@ -119,8 +116,9 @@ void print(char *dir, Options *options) {
 
         //CITATTION: https://stackoverflow.com/questions/7328327/how-to-get-files-owner-name-in-linux-using-c
         struct passwd *pw = getpwuid(sb.st_uid);
-        struct group *gr = getgrgid(sb.st_uid);\
-            printf("%c%c%c%c%c%c%c%c%c%c %ld %s %s %ld %s ",
+        struct group *gr = getgrgid(sb.st_uid);
+
+            printf("%c%c%c%c%c%c%c%c%c%c ",
                    isDir(sb),
                    isOwnerRead(sb),
                    isOwnerWrite(sb),
@@ -130,12 +128,14 @@ void print(char *dir, Options *options) {
                    isGroupExecute(sb),
                    isOthersRead(sb),
                    isOthersWrite(sb),
-                   isOthersExecute(sb),
-                   sb.st_nlink,
-                   pw->pw_name,
-                   gr->gr_name,
-                   sb.st_size,
-                   lastModified);
+                   isOthersExecute(sb));
+            printf("%ld ", sb.st_nlink);
+            printf("%s ", pw->pw_name);
+            printf("%s ", gr->gr_name);
+            printf("%ld ", sb.st_size);
+            printf("%s ", lastModified);
+
+
     }
 
     printf("%s \n", dir);
