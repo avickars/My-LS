@@ -3,40 +3,62 @@
 #include <stddef.h> // For NULL
 #include <stdio.h> // For printf()
 #include <stdlib.h> // For free()
+#include <sys/stat.h> // For stat
 #include "sort.h"
 
-#include "optionsStruct.h"
+#include "structures.h"
 #include "printer.h"
 
 #define SIZEOFSUBDIRECTORY 1024
 
-int mySort(const struct dirent **e1, const struct dirent **e2) {
-    const char *a = (*e1)->d_name;
-    const char *b = (*e2)->d_name;
-    return strcmp(a, b);
+int isDirectory(char *file) {
+    struct stat sb;
+    stat(file, &sb);
+    return S_ISDIR(sb.st_mode);
 }
 
 void read_directory(char *dir, Options *options) {
+    printf("Received %s \n", dir);
     // Create a buffer
     struct dirent **namelist;
-    int n;
+    int numFiles;
+    int result = 0;
 
     char subDirectory[SIZEOFSUBDIRECTORY];
 
-    n = scandir(dir, &namelist, NULL, NULL);
+    if (isDirectory(dir)) {
+        printf("%s \n", dir);
 
-    selectionSort(namelist, n);
-    while (n--) {
-//        strcpy(subDirectory, dir);
-//        strcat(subDirectory,"/");
-//        strcat(subDirectory,namelist[n]->d_name);
-//        print(subDirectory, options, namelist[n]->d_name);
+        numFiles = scandir(dir, &namelist, NULL, NULL);
+        selectionSort(namelist, numFiles);
 
-        printf("%s \n",namelist[n]->d_name);
-        free(namelist[n]);
+        while (numFiles--) {
+            strcpy(subDirectory, dir);
+            strcat(subDirectory,"/");
+            strcat(subDirectory,namelist[numFiles]->d_name);
+
+            if ((result = print(subDirectory, options, namelist[numFiles]->d_name)) == -1) {
+                free(namelist[numFiles]);
+                continue;
+            }
 
 
+            if (options->R) {
+                if (isDirectory(namelist[numFiles]->d_name)) {
+                    read_directory(namelist[numFiles]->d_name, options);
+                }
+
+            }
+            free(namelist[numFiles]);
+
+
+        }
+        free(namelist);
+    } else {
+        print(dir, options, dir);
     }
-    free(namelist);
-}
+
+
+
+ }
 

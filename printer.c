@@ -6,7 +6,7 @@
 #include <time.h> // For ctime*()
 #include <string.h> // For strcmp
 
-#include "optionsStruct.h"
+#include "structures.h"
 
 char isDir(struct stat file) {
     if (S_ISDIR(file.st_mode)) {
@@ -88,21 +88,21 @@ char isOthersExecute(struct stat file) {
     }
 }
 
-void print(char *dir, Options *options, char *name) {
+int print(char *dir, Options *options, char *name) {
 
     // Removing the current directory form output
     if (strcmp(name, ".") == 0) {
-        return;
+        return -1;
     }
 
     // Removing the parent directory from output
     if (strcmp(name, "..") == 0) {
-        return;
+        return -1;
     }
 
     // Removing hidden files from output
     if (name[0]=='.') {
-        return;
+        return -1;
     }
 
     struct stat sb;

@@ -1,0 +1,3 @@
+ls ~/Documents/GitRepositories/CMPT300Assignment3/*.c
+
+./myls ~/Documents/GitRepositories/CMPT300Assignment3/*.c

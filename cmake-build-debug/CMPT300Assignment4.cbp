@@ -91,9 +91,6 @@
 		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/myls.c">
 			<Option target="CMPT300Assignment4"/>
 		</Unit>
-		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/optionsStruct.h">
-			<Option target="CMPT300Assignment4"/>
-		</Unit>
 		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/printer.c">
 			<Option target="CMPT300Assignment4"/>
 		</Unit>
@@ -104,6 +101,9 @@
 			<Option target="CMPT300Assignment4"/>
 		</Unit>
 		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/sort.h">
+			<Option target="CMPT300Assignment4"/>
+		</Unit>
+		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/structures.h">
 			<Option target="CMPT300Assignment4"/>
 		</Unit>
 		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/CMakeLists.txt">

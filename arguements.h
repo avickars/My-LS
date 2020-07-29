@@ -4,7 +4,7 @@
 #ifndef CMPT300ASSIGNMENT4_ARGUEMENTS_H
 #define CMPT300ASSIGNMENT4_ARGUEMENTS_H
 
-void arguements_handler(Options *options, int numArgs,char *args[]);
+int arguements_handler(Options *options, int numArgs,char *args[]);
 
 
 

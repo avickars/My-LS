@@ -28,9 +28,5 @@ int selectionSort(struct dirent **namelist, int size) {
         swap = -1;
     }
 
-//    while (size--) {
-//        printf("%s\n", namelist[size]->d_name);
-//    }
-
     return 0;
 }

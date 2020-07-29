@@ -3,4 +3,4 @@ project(CMPT300Assignment4 C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(CMPT300Assignment4 myls.c arguements.c arguements.h directory.c directory.h printer.c printer.h optionsStruct.h sort.h sort.c)
+add_executable(CMPT300Assignment4 myls.c arguements.c arguements.h directory.c directory.h printer.c printer.h structures.h sort.h sort.c)

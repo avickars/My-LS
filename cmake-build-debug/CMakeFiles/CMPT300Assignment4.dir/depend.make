@@ -7,6 +7,7 @@ CMakeFiles/CMPT300Assignment4.dir/arguements.c.o: ../optionsStruct.h
 CMakeFiles/CMPT300Assignment4.dir/directory.c.o: ../directory.c
 CMakeFiles/CMPT300Assignment4.dir/directory.c.o: ../optionsStruct.h
 CMakeFiles/CMPT300Assignment4.dir/directory.c.o: ../printer.h
+CMakeFiles/CMPT300Assignment4.dir/directory.c.o: ../sort.h
 
 CMakeFiles/CMPT300Assignment4.dir/myls.c.o: ../arguements.h
 CMakeFiles/CMPT300Assignment4.dir/myls.c.o: ../directory.h
@@ -15,4 +16,6 @@ CMakeFiles/CMPT300Assignment4.dir/myls.c.o: ../optionsStruct.h
 
 CMakeFiles/CMPT300Assignment4.dir/printer.c.o: ../optionsStruct.h
 CMakeFiles/CMPT300Assignment4.dir/printer.c.o: ../printer.c
+
+CMakeFiles/CMPT300Assignment4.dir/sort.c.o: ../sort.c
 

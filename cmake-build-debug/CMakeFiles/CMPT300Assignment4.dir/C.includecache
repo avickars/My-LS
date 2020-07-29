@@ -6,47 +6,23 @@
 
 #IncludeRegexTransform: 
 
-/home/aidan/Documents/GitRepositories/CMPT300Assignment4/arguements.c
-string.h
--
+/home/aidan/Documents/GitRepositories/CMPT300Assignment4/arguements.h
+
+/home/aidan/Documents/GitRepositories/CMPT300Assignment4/directory.h
+
+/home/aidan/Documents/GitRepositories/CMPT300Assignment4/myls.c
 optionsStruct.h
 /home/aidan/Documents/GitRepositories/CMPT300Assignment4/optionsStruct.h
-
-/home/aidan/Documents/GitRepositories/CMPT300Assignment4/directory.c
-string.h
--
-dirent.h
--
+arguements.h
+/home/aidan/Documents/GitRepositories/CMPT300Assignment4/arguements.h
+directory.h
+/home/aidan/Documents/GitRepositories/CMPT300Assignment4/directory.h
 stddef.h
 -
 stdio.h
 -
-stdlib.h
--
-optionsStruct.h
-/home/aidan/Documents/GitRepositories/CMPT300Assignment4/optionsStruct.h
-printer.h
-/home/aidan/Documents/GitRepositories/CMPT300Assignment4/printer.h
 
 /home/aidan/Documents/GitRepositories/CMPT300Assignment4/optionsStruct.h
 stdbool.h
 -
-
-/home/aidan/Documents/GitRepositories/CMPT300Assignment4/printer.c
-sys/stat.h
--
-stdio.h
--
-stdlib.h
--
-pwd.h
--
-grp.h
--
-time.h
--
-optionsStruct.h
-/home/aidan/Documents/GitRepositories/CMPT300Assignment4/optionsStruct.h
-
-/home/aidan/Documents/GitRepositories/CMPT300Assignment4/printer.h
 
