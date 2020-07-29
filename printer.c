@@ -4,6 +4,7 @@
 #include <pwd.h> // For getpwuid()
 #include <grp.h> // For getgrgid()
 #include <time.h> // For ctime*()
+#include <string.h> // For strcmp
 
 #include "optionsStruct.h"
 
@@ -87,7 +88,23 @@ char isOthersExecute(struct stat file) {
     }
 }
 
-void print(char *dir, Options *options) {
+void print(char *dir, Options *options, char *name) {
+
+    // Removing the current directory form output
+    if (strcmp(name, ".") == 0) {
+        return;
+    }
+
+    // Removing the parent directory from output
+    if (strcmp(name, "..") == 0) {
+        return;
+    }
+
+    // Removing hidden files from output
+    if (name[0]=='.') {
+        return;
+    }
+
     struct stat sb;
     if (lstat(dir, &sb) == -1) {
         perror("lstat");
@@ -95,7 +112,7 @@ void print(char *dir, Options *options) {
     }
 
     if (options->i) {
-        printf("%7ld %s \n", (long) sb.st_ino, dir);
+        printf("%7ld ", (long) sb.st_ino);
     }
 
     if (options->l) {
@@ -138,7 +155,7 @@ void print(char *dir, Options *options) {
 
     }
 
-    printf("%s \n", dir);
+    printf("%s \n", name);
 }
 
 

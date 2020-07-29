@@ -6,6 +6,28 @@
 
 #IncludeRegexTransform: 
 
+/home/aidan/Documents/GitRepositories/CMPT300Assignment4/arguements.c
+string.h
+-
+optionsStruct.h
+/home/aidan/Documents/GitRepositories/CMPT300Assignment4/optionsStruct.h
+
+/home/aidan/Documents/GitRepositories/CMPT300Assignment4/directory.c
+string.h
+-
+dirent.h
+-
+stddef.h
+-
+stdio.h
+-
+stdlib.h
+-
+optionsStruct.h
+/home/aidan/Documents/GitRepositories/CMPT300Assignment4/optionsStruct.h
+printer.h
+/home/aidan/Documents/GitRepositories/CMPT300Assignment4/printer.h
+
 /home/aidan/Documents/GitRepositories/CMPT300Assignment4/optionsStruct.h
 stdbool.h
 -
@@ -17,6 +39,14 @@ stdio.h
 -
 stdlib.h
 -
+pwd.h
+-
+grp.h
+-
+time.h
+-
 optionsStruct.h
 /home/aidan/Documents/GitRepositories/CMPT300Assignment4/optionsStruct.h
+
+/home/aidan/Documents/GitRepositories/CMPT300Assignment4/printer.h
 

@@ -1,10 +1,11 @@
-
 #include <string.h> // For strlen()
 #include "optionsStruct.h"
 
+#include <stdio.h>
+
 void arguements_handler(Options *options, int numArgs,char *args[]) {
     // Iterating through arguements
-    for (int i = 0; i < numArgs; ++i) {
+    for (int i = 1; i < numArgs; ++i) {
         // If an argument starts '-', iterate through it
         if (args[i][0] == '-') {
             for (int j = 1; j < strlen(args[i]); ++j) {
@@ -20,7 +21,12 @@ void arguements_handler(Options *options, int numArgs,char *args[]) {
                     options->R = true;
                 }
             }
+        } else {
+            options->path = args[i];
         }
+
+
     }
+    printf("Arg: %s \n", options->path);
 }
 

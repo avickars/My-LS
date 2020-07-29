@@ -8,6 +8,7 @@ typedef struct Options
     bool i;
     bool l;
     bool R;
+    char *path;
 } Options;
 
 #endif //CMPT300ASSIGNMENT4_OPTIONSSTRUCT_H
