@@ -4,7 +4,7 @@ myls: myls.c arguements.c directory.c printer.c sort.c list.c
 	gcc -o myls myls.c arguements.c directory.c printer.c sort.c list.c
 
 valgrind:
-	valgrind --leak-check=full ./myls *
+	valgrind --leak-check=full ./myls -R *
 
 clean:
 	rm myls

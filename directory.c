@@ -18,18 +18,20 @@ int isDirectory(char *file) {
     return S_ISDIR(sb.st_mode);
 }
 
+
+
 void read_directory(char *dir, Options *options) {
     // Create a buffer
     struct dirent **namelist;
     int numFiles;
-    int result = 0;
-    List list = {0 ,NULL, NULL, NULL};
+    List directoriesList = {0 ,NULL, NULL, NULL};
 
 
     char subDirectory[SIZEOFSUBDIRECTORY];
 
     if (isDirectory(dir)) {
 //        print(dir, options, dir);
+
 
         // Scanning the directory
         numFiles = scandir(dir, &namelist, NULL, NULL);
@@ -42,22 +44,32 @@ void read_directory(char *dir, Options *options) {
             strcat(subDirectory,"/");
             strcat(subDirectory,namelist[numFiles]->d_name);
 
-            if ((result = print(subDirectory, options, namelist[numFiles]->d_name)) == -1) {
+            if (print(subDirectory, options, namelist[numFiles]->d_name) == -1) {
                 free(namelist[numFiles]);
                 continue;
             }
 
             if (options->R) {
-                printf()
-                if (isDirectory(namelist[numFiles]->d_name)) {
-                    read_directory(namelist[numFiles]->d_name, options);
+                // Testing if the path is a directory, as per ls, we display it after, adding nodes to a list to keep track of what needs to be displayed
+                if (isDirectory(subDirectory)) {
+                    char *dirPath = (char *) malloc(sizeof(subDirectory));
+                    strcpy(dirPath, subDirectory);
+                    addNode(&directoriesList, dirPath);
                 }
 
             }
             free(namelist[numFiles]);
-
-
         }
+        if (directoriesList.size > 0) {
+            do {
+                printf("\n%s:\n", (char *) getCurrentNodeItem(&directoriesList));
+                read_directory((char *) getCurrentNodeItem(&directoriesList), options);
+            } while (nextNode(&directoriesList) == 0);
+            listFree(&directoriesList, freeItem);
+        }
+
+
+
         free(namelist);
     } else {
         print(dir, options, dir);

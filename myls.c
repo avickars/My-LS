@@ -10,12 +10,6 @@
 #include "structures.h"
 #include "directory.h"
 
-void freeItem(void *item) {
-    free(item);
-}
-
-
-
 int main(int numArgs, char *args[]) {
     // Declaring a struct to record to handle the arguements
     struct Options options = {false, false, false, NULL};
@@ -31,34 +25,34 @@ int main(int numArgs, char *args[]) {
     } else if (firstLocationArg > -1) {
         // Multiple paths passed as an argument
 
-        // Simple singly linked list to grab any arguements that are directories, this way they are printed last as per ls
-        List list = {0 ,NULL, NULL, NULL};
+        // Simple singly linked directoriesList to grab any arguements that are directoriesList, this way they are printed last as per ls
+        List directoriesList = {0 , NULL, NULL, NULL};
 
         for (int i = firstLocationArg; i < numArgs; ++i) {
             // Testing if the argument is a directory
             if (isDirectory(args[i])) {
-                // If argument is a directory, add it to the list
+                // If argument is a directory, add it to the directoriesList
                 int *argNum = (int *) malloc(sizeof(int));
                 *argNum = i;
-                addNode(&list, argNum);
+                addNode(&directoriesList, argNum);
                 // Then skip it (i.e. don't print it yet)
                 continue;
             }
 
-            // Reading paths that are not directories
+            // Reading paths that are not directoriesList
             options.path = args[i];
             read_directory(options.path, &options);
         }
 
-//      If there are any directories, reading them here
-        if (list.size > 0) {
+//      If there are any directoriesList, reading them here
+        if (directoriesList.size > 0) {
             do {
-                printf("\n%s:\n", args[*(int*) getCurrentNodeItem(&list)]);
-                options.path = args[*(int*) getCurrentNodeItem(&list)];
+                printf("\n%s:\n", args[*(int*) getCurrentNodeItem(&directoriesList)]);
+                options.path = args[*(int*) getCurrentNodeItem(&directoriesList)];
                 read_directory(options.path, &options);
-            } while (nextNode(&list) == 0);
+            } while (nextNode(&directoriesList) == 0);
 
-            listFree(&list,freeItem);
+            listFree(&directoriesList, freeItem);
         }
 
     } else {

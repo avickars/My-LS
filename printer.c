@@ -108,7 +108,7 @@ int print(char *dir, Options *options, char *name) {
     struct stat sb;
     if (lstat(dir, &sb) == -1) {
         perror("lstat");
-        exit(EXIT_FAILURE);
+//        exit(EXIT_FAILURE);
     }
 
     if (options->i) {

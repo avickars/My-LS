@@ -51,5 +51,9 @@ void listFree(List *list, FREE_FN freeItemFunction) {
     }
 }
 
+void freeItem(void *item) {
+    free(item);
+}
+
 
 
