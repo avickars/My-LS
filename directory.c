@@ -8,6 +8,7 @@
 
 #include "structures.h"
 #include "printer.h"
+#include "list.h"
 
 #define SIZEOFSUBDIRECTORY 1024
 
@@ -22,12 +23,18 @@ void read_directory(char *dir, Options *options) {
     struct dirent **namelist;
     int numFiles;
     int result = 0;
+    List list = {0 ,NULL, NULL, NULL};
+
 
     char subDirectory[SIZEOFSUBDIRECTORY];
 
     if (isDirectory(dir)) {
-        print(dir, options, dir);
+//        print(dir, options, dir);
+
+        // Scanning the directory
         numFiles = scandir(dir, &namelist, NULL, NULL);
+
+        // Sorting the elements in the directory
         selectionSort(namelist, numFiles);
 
         while (numFiles--) {
@@ -41,6 +48,7 @@ void read_directory(char *dir, Options *options) {
             }
 
             if (options->R) {
+                printf()
                 if (isDirectory(namelist[numFiles]->d_name)) {
                     read_directory(namelist[numFiles]->d_name, options);
                 }

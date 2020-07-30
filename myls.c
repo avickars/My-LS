@@ -10,6 +10,10 @@
 #include "structures.h"
 #include "directory.h"
 
+void freeItem(void *item) {
+    free(item);
+}
+
 
 
 int main(int numArgs, char *args[]) {
@@ -27,17 +31,16 @@ int main(int numArgs, char *args[]) {
     } else if (firstLocationArg > -1) {
         // Multiple paths passed as an argument
 
-        int directories[numArgs];
-        int numDirectories = 0;
-
-        // Simple singly linked list to grab any arguements that are directories, this way tey are printed last as per ls
-        struct List list = {0 ,NULL, NULL, NULL};
+        // Simple singly linked list to grab any arguements that are directories, this way they are printed last as per ls
+        List list = {0 ,NULL, NULL, NULL};
 
         for (int i = firstLocationArg; i < numArgs; ++i) {
             // Testing if the argument is a directory
             if (isDirectory(args[i])) {
                 // If argument is a directory, add it to the list
-                addNode(&list, i);
+                int *argNum = (int *) malloc(sizeof(int));
+                *argNum = i;
+                addNode(&list, argNum);
                 // Then skip it (i.e. don't print it yet)
                 continue;
             }
@@ -47,17 +50,16 @@ int main(int numArgs, char *args[]) {
             read_directory(options.path, &options);
         }
 
-        // If there are any directories, reading them how
+//      If there are any directories, reading them here
         if (list.size > 0) {
             do {
-                printf("\n%s:\n", args[getCurrentNodeNum(&list)]);
-                options.path = args[getCurrentNodeNum(&list)];
+                printf("\n%s:\n", args[*(int*) getCurrentNodeItem(&list)]);
+                options.path = args[*(int*) getCurrentNodeItem(&list)];
                 read_directory(options.path, &options);
             } while (nextNode(&list) == 0);
+
+            listFree(&list,freeItem);
         }
-
-
-
 
     } else {
         // Single Path passed as an argument

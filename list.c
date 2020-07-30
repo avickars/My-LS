@@ -1,23 +1,16 @@
 #include <stdlib.h> // For malloc()
+#include "list.h"
 
 typedef struct Node
 {
-    int directoryNumber;
+    void *item;
     struct Node *next;
 } Node;
 
-typedef struct List
-{
-    int size;
-    struct Node *head;
-    struct Node *tail;
-    struct Node *current;
-} List;
-
-void addNode(List *list, int num) {
+void addNode(List *list, void *item) {
     if (list->size == 0) {
         list->head = (Node *) malloc(sizeof(struct Node));
-        list->head->directoryNumber = num;
+        list->head->item = item;
         list->head->next = NULL;
         list->size++;
         list->tail = list->head;
@@ -26,12 +19,12 @@ void addNode(List *list, int num) {
         list->tail->next = (Node *) malloc(sizeof(struct Node));
         list->tail = list->tail->next;
         list->tail->next = NULL;
-        list->tail->directoryNumber = num;
+        list->tail->item = item;
     }
 }
 
-int getCurrentNodeNum(List *list) {
-    return list->current->directoryNumber;
+void *getCurrentNodeItem(List *list) {
+    return list->current->item;
 }
 
 int nextNode(List *list) {
@@ -40,6 +33,21 @@ int nextNode(List *list) {
     } else {
         list->current = list->current->next;
         return 0;
+    }
+}
+
+void setCurrent(List *list, Node *setTo) {
+    list->current = setTo;
+}
+
+void listFree(List *list, FREE_FN freeItemFunction) {
+    Node *temp = list->head;
+    list->current = list->head;
+    while (temp != NULL) {
+        temp = list->current->next;
+        freeItemFunction(list->current->item);
+        free(list->current);
+        list->current = temp;
     }
 }
 
