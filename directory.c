@@ -18,7 +18,6 @@ int isDirectory(char *file) {
 }
 
 void read_directory(char *dir, Options *options) {
-    printf("Received %s \n", dir);
     // Create a buffer
     struct dirent **namelist;
     int numFiles;
@@ -27,8 +26,7 @@ void read_directory(char *dir, Options *options) {
     char subDirectory[SIZEOFSUBDIRECTORY];
 
     if (isDirectory(dir)) {
-        printf("%s \n", dir);
-
+        print(dir, options, dir);
         numFiles = scandir(dir, &namelist, NULL, NULL);
         selectionSort(namelist, numFiles);
 
@@ -41,7 +39,6 @@ void read_directory(char *dir, Options *options) {
                 free(namelist[numFiles]);
                 continue;
             }
-
 
             if (options->R) {
                 if (isDirectory(namelist[numFiles]->d_name)) {

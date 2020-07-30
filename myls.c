@@ -17,10 +17,29 @@ int main(int numArgs, char *args[]) {
         // If no path argument was passed
         read_directory(".", &options);
     } else if (firstLocationArg > -1) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // Multiple paths passed as an argument
         for (int i = firstLocationArg; i < numArgs; ++i) {
             options.path = args[i];
-            read_directory(options.path, &options);
+//            read_directory(options.path, &options);
 
         }
     } else {
