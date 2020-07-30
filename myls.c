@@ -3,6 +3,7 @@
 #include "directory.h"
 #include <stddef.h> // For NULL
 #include <stdlib.h> // For malloc()
+#include "list.h"
 
 
 #include <stdio.h>
@@ -30,39 +31,33 @@ int main(int numArgs, char *args[]) {
         int numDirectories = 0;
 
         // Simple singly linked list to grab any arguements that are directories, this way tey are printed last as per ls
-        struct List list = {0 ,NULL, NULL};
+        struct List list = {0 ,NULL, NULL, NULL};
 
         for (int i = firstLocationArg; i < numArgs; ++i) {
             // Testing if the argument is a directory
             if (isDirectory(args[i])) {
-
                 // If argument is a directory, add it to the list
-                if (list.size == 0) {
-                    list.head = (Node *) malloc(sizeof(struct Node));
-                    list.head->directoryNumber = i;
-                    list.head->next = NULL;
-                    list.size++;
-                    list.tail = list.head;
-                } else {
-                    list.tail->next = (Node *) malloc(sizeof(struct Node));
-                    list.tail = list.tail->next;
-                    list.tail->next = NULL;
-                    list.tail->directoryNumber = i;
-                }
+                addNode(&list, i);
                 // Then skip it (i.e. don't print it yet)
                 continue;
             }
+
+            // Reading paths that are not directories
             options.path = args[i];
             read_directory(options.path, &options);
         }
 
-        // If there are any directories, we'll print them out now
-        Node *temp = list.head;
-        while (temp != NULL) {
-            options.path = args[temp->directoryNumber];
-            read_directory(options.path, &options);
-            temp = temp->next;
+        // If there are any directories, reading them how
+        if (list.size > 0) {
+            do {
+                printf("\n%s:\n", args[getCurrentNodeNum(&list)]);
+                options.path = args[getCurrentNodeNum(&list)];
+                read_directory(options.path, &options);
+            } while (nextNode(&list) == 0);
         }
+
+
+
 
     } else {
         // Single Path passed as an argument

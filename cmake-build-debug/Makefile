@@ -197,6 +197,33 @@ directory.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/directory.c.s
 .PHONY : directory.c.s
 
+list.o: list.c.o
+
+.PHONY : list.o
+
+# target to build an object file
+list.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/list.c.o
+.PHONY : list.c.o
+
+list.i: list.c.i
+
+.PHONY : list.i
+
+# target to preprocess a source file
+list.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/list.c.i
+.PHONY : list.c.i
+
+list.s: list.c.s
+
+.PHONY : list.s
+
+# target to generate assembly for a file
+list.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CMPT300Assignment4.dir/build.make CMakeFiles/CMPT300Assignment4.dir/list.c.s
+.PHONY : list.c.s
+
 myls.o: myls.c.o
 
 .PHONY : myls.o
@@ -293,6 +320,9 @@ help:
 	@echo "... directory.o"
 	@echo "... directory.i"
 	@echo "... directory.s"
+	@echo "... list.o"
+	@echo "... list.i"
+	@echo "... list.s"
 	@echo "... myls.o"
 	@echo "... myls.i"
 	@echo "... myls.s"

@@ -11,18 +11,6 @@ typedef struct Options
     char *path;
 } Options;
 
-typedef struct Node
-{
-    int directoryNumber;
-    struct Node *next;
-} Node;
-
-typedef struct List
-{
-    int size;
-    struct Node *head;
-    struct Node *tail;
-} List;
 
 
 

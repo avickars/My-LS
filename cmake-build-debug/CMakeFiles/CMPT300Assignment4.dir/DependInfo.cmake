@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_C
   "/home/aidan/Documents/GitRepositories/CMPT300Assignment4/arguements.c" "/home/aidan/Documents/GitRepositories/CMPT300Assignment4/cmake-build-debug/CMakeFiles/CMPT300Assignment4.dir/arguements.c.o"
   "/home/aidan/Documents/GitRepositories/CMPT300Assignment4/directory.c" "/home/aidan/Documents/GitRepositories/CMPT300Assignment4/cmake-build-debug/CMakeFiles/CMPT300Assignment4.dir/directory.c.o"
+  "/home/aidan/Documents/GitRepositories/CMPT300Assignment4/list.c" "/home/aidan/Documents/GitRepositories/CMPT300Assignment4/cmake-build-debug/CMakeFiles/CMPT300Assignment4.dir/list.c.o"
   "/home/aidan/Documents/GitRepositories/CMPT300Assignment4/myls.c" "/home/aidan/Documents/GitRepositories/CMPT300Assignment4/cmake-build-debug/CMakeFiles/CMPT300Assignment4.dir/myls.c.o"
   "/home/aidan/Documents/GitRepositories/CMPT300Assignment4/printer.c" "/home/aidan/Documents/GitRepositories/CMPT300Assignment4/cmake-build-debug/CMakeFiles/CMPT300Assignment4.dir/printer.c.o"
   "/home/aidan/Documents/GitRepositories/CMPT300Assignment4/sort.c" "/home/aidan/Documents/GitRepositories/CMPT300Assignment4/cmake-build-debug/CMakeFiles/CMPT300Assignment4.dir/sort.c.o"

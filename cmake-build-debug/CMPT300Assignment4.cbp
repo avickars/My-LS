@@ -88,6 +88,12 @@
 		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/directory.h">
 			<Option target="CMPT300Assignment4"/>
 		</Unit>
+		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/list.c">
+			<Option target="CMPT300Assignment4"/>
+		</Unit>
+		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/list.h">
+			<Option target="CMPT300Assignment4"/>
+		</Unit>
 		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/myls.c">
 			<Option target="CMPT300Assignment4"/>
 		</Unit>
