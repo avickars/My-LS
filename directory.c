@@ -42,7 +42,6 @@ void read_directory(char *dir, Options *options, Sizes *sizes) {
             getSizes(subDirectory, options, &dirSizes);
             memset(subDirectory, 0, SIZEOFSUBDIRECTORY);
         }
-
         // Iterating through the directory to print
         for (int i = 0; i < numFiles ; i++) {
             strcpy(subDirectory, dir);

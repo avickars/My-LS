@@ -25,7 +25,6 @@ int main(int numArgs, char *args[]) {
     // Defining a dummy struct to hold the max lengths of the lstat values.  I don't actually need it, but I need to pass it
     Sizes dummySizes = {-1, -1,-1,-1,-1};
 
-
     // Reading the directory
     if (options.path == NULL) {
         // If no path argument was passed

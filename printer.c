@@ -13,7 +13,7 @@
 static int getNumberDigits(int num) {
     int temp = num;
     int numDigits = 0;
-    while (temp > 0) {
+    while (temp != 0) {
         temp = temp / 10;
         numDigits++;
     }
