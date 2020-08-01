@@ -30,48 +30,56 @@ int my_dir_comparator(const struct dirent** lhs, const struct dirent** rhs) {
 
 
 void read_directory(char *dir, Options *options) {
+//    printf("dir passed in %s \n", dir);
 
-//    struct dirent **namelist;
-//    int n;
-//    int i=0;
-//    n = scandir(".", &namelist,NULL,alphasort);
-//    if (n < 0)
-//        perror("scandir");
-//    else {
-//        while (i<n) {
-//            printf("%s\n", namelist[i]->d_name);
-//            free(namelist[i]);
-//            ++i;
-//        }
-//        free(namelist);
-//
-//    }
     char subDirectory[SIZEOFSUBDIRECTORY];
     struct dirent **namelist;
     int numFiles;
-        if (isDirectory(dir)) {
-            // Scanning the directory
-            numFiles = scandir(dir, &namelist, NULL, alphasort);
+    List directoriesList = {0 ,NULL, NULL, NULL};
+    if (isDirectory(dir)) {
+        // Scanning the directory
+        numFiles = scandir(dir, &namelist, NULL, alphasort);
 
-            // Iterating through the directory
-            for (int i = 0; i < numFiles ; i++) {
-                strcpy(subDirectory, dir);
-                strcat(subDirectory,"/");
-                strcat(subDirectory,namelist[i]->d_name);
+        // Iterating through the directory
+        for (int i = 0; i < numFiles ; i++) {
+            strcpy(subDirectory, dir);
+            strcat(subDirectory,"/");
+            strcat(subDirectory,namelist[i]->d_name);
 
-                if (print(subDirectory, options, namelist[i]->d_name) == -1) {
-                    free(namelist[i]);
-                    continue;
+            if (print(subDirectory, options, namelist[i]->d_name) == -1) {
+                free(namelist[i]);
+                continue;
+            }
+
+            if (options->R) {
+                // Testing if the path is a directory, as per ls, we display it after, adding nodes to a list to keep track of what needs to be displayed
+                if (isDirectory(subDirectory)) {
+                    char *dirPath = (char *) malloc(sizeof(subDirectory));
+                    strcpy(dirPath, subDirectory);
+                    addNode(&directoriesList, dirPath);
                 }
 
-                free(namelist[i]);
-
             }
-            free(namelist);
+            free(namelist[i]);
 
-        } else {
-            print(dir, options, dir);
+
         }
+        if (directoriesList.size > 0) {
+            Node *current = directoriesList.head;
+            do {
+                printf("\n%s:\n", (char *)  current->item);
+                read_directory((char *) current->item, options);
+                current = current->next;
+            } while (current != NULL);
+            listFree(&directoriesList, freeItem);
+        }
+
+
+        free(namelist);
+
+    } else {
+        print(dir, options, dir);
+    }
 
 
 

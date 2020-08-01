@@ -44,8 +44,7 @@ void listFree(List *list, FREE_FN freeItemFunction) {
     list->current = list->head;
     while (temp != NULL) {
         temp = list->current->next;
-        freeItemFunction(list->current->item);
-        free(list->current);
+        freeItemFunction(list->current);
         list->current = temp;
     }
 }

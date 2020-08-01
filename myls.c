@@ -27,21 +27,25 @@ int main(int numArgs, char *args[]) {
             char *arg = (char *) malloc(sizeof(args[i]));
             arg = args[i];
             if (isDirectory(args[i])) {
+                // Extracting any directories to be printed after
                 addNode(&directoryList, arg);
             } else {
                 addNode(&argsList, arg);
             }
         }
         if (argsList.size > 1) {
+            // Sorting the arguements that are files
             selectionSort(&argsList);
             Node *current = argsList.head;
             do {
                 read_directory(current->item, &options);
                 current = current->next;
             } while (current != NULL);
+            listFree(&argsList, freeItem);
         }
 
         if (directoryList.size > 0) {
+            // Sorting the arguements that are directories
             selectionSort(&directoryList);
             Node *current = directoryList.head;
             do {
@@ -49,7 +53,10 @@ int main(int numArgs, char *args[]) {
                 read_directory(current->item, &options);
                 current = current->next;
             } while (current != NULL);
+            listFree(&directoryList, freeItem);
         }
+
+
     }
 
     return 0;
