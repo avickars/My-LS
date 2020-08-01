@@ -1,35 +1,34 @@
-#include <dirent.h>
 #include <string.h>
 #include <stdio.h>
 
+#include "list.h"
 
-int selectionSort(struct dirent **namelist, int size) {
-    int result = 0;
-    int swap = -1;
-    struct dirent *temp;
-    for (int i = 0; i < size; ++i) {
-        for (int j = i + 1; j < size; ++j) {
-            // Testing if there is a higher element
-            if (swap > 0) {
-                result = strcmp(namelist[swap]->d_name, namelist[j]->d_name);
+
+void selectionSort(List *list) {
+    int result;
+    setCurrentToFront(list);
+    Node *current = list->head;
+    Node *temp;
+    Node *swapNode = NULL;
+    do {
+        temp = current->next;
+        while (temp != NULL) {
+            if (swapNode != NULL) {
+                result = strcmp((char *) swapNode->item, (char *) temp->item);
             } else {
-                result = strcmp(namelist[i]->d_name, namelist[j]->d_name);
+                result = strcmp((char *) current->item, (char *) temp->item);
             }
-            // If there is a higher element, make it the new highest one
-            if (result < 0) {
-                swap = j;
+            if (result > 0) {
+                swapNode = temp;
             }
+
+            temp = temp->next;
         }
 
-        // Swapping to elements
-        if (swap > -1) {
-            temp = namelist[i];
-            namelist[i] = namelist[swap];
-            namelist[swap] = temp;
+        if (swapNode != NULL) {
+            swap(current, swapNode);
         }
-        // Resetting the swap value
-        swap = -1;
-    }
-
-    return 0;
+        swapNode = NULL;
+        current = current->next;
+    } while (current != NULL);
 }

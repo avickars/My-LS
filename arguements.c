@@ -6,6 +6,7 @@
 int arguements_handler(Options *options, int numArgs,char *args[]) {
     bool firstLocation = true;
     int firstLocationArg = -1;
+
     // Iterating through arguements
     for (int i = 1; i < numArgs; ++i) {
         // If an argument starts '-', iterate through it
@@ -26,8 +27,10 @@ int arguements_handler(Options *options, int numArgs,char *args[]) {
         } else {
             if (numArgs - i > 1) {
                 options->path = args[i];
+                firstLocationArg = i;
                 return i;
             }
+            firstLocationArg = i;
             options->path = args[i];
         }
     }

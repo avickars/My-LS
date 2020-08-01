@@ -13,11 +13,27 @@ typedef struct List
     struct Node *current;
 } List;
 
+typedef struct Node
+{
+    void *item;
+    struct Node *next;
+} Node;
+
 void addNode(List *list, void *item);
 
 void *getCurrentNodeItem(List *list);
 
-int nextNode(List *list);
+void swap(Node *node1, Node *node2);
+
+void setCurrentToFront(List *list);
+
+void setCurrent(List *list, Node *setTo);
+
+void *getCurrentNode(List *list);
+
+int listSize(List *list);
+
+void *nextNode(List *list);
 
 typedef void (*FREE_FN)(void* pItem);
 void listFree(List* pList, FREE_FN pItemFreeFn);
