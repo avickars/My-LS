@@ -24,7 +24,7 @@ static void freeItem(void *item) {
 
 
 
-void read_directory(char *dir, Options *options) {
+void read_directory(char *dir, Options *options, Sizes *sizes) {
     char subDirectory[SIZEOFSUBDIRECTORY];
     struct dirent **namelist;
     int numFiles;
@@ -33,14 +33,24 @@ void read_directory(char *dir, Options *options) {
         // Scanning the directory
         numFiles = scandir(dir, &namelist, NULL, alphasort);
 
-        // Iterating through the directory
+        // Getting the lengths of each lstat() value for print in this directory
+        Sizes dirSizes = {0,0,0,0,0};
+        for (int i = 0; i < numFiles; ++i) {
+            strcpy(subDirectory, dir);
+            strcat(subDirectory,"/");
+            strcat(subDirectory,namelist[i]->d_name);
+            getSizes(subDirectory, options, &dirSizes);
+            memset(subDirectory, 0, SIZEOFSUBDIRECTORY);
+        }
+
+        // Iterating through the directory to print
         for (int i = 0; i < numFiles ; i++) {
             strcpy(subDirectory, dir);
             strcat(subDirectory,"/");
             strcat(subDirectory,namelist[i]->d_name);
 
             // If print() returns an option we don't want to print or traverse, we'll just skip it
-            if (print(subDirectory, options, namelist[i]->d_name) == -1) {
+            if (print(subDirectory, options, namelist[i]->d_name, &dirSizes) == -1) {
                 free(namelist[i]);
                 continue;
             }
@@ -56,21 +66,21 @@ void read_directory(char *dir, Options *options) {
             }
             free(namelist[i]);
 
-
+            memset(subDirectory, 0, SIZEOFSUBDIRECTORY);
         }
         if (directoriesList.size > 0) {
             Node *current = directoriesList.head;
             do {
                 printf("\n%s:\n", (char *)  current->item);
-                read_directory((char *) current->item, options);
+                read_directory((char *) current->item, options, sizes);
                 current = current->next;
             } while (current != NULL);
             listFree(&directoriesList, freeItem);
         }
         free(namelist);
-        memset(subDirectory, 0, SIZEOFSUBDIRECTORY);
+
     } else {
-        print(dir, options, dir);
+        print(dir, options, dir, sizes);
     }
 
  }

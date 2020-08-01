@@ -9,44 +9,59 @@
 #include "structures.h"
 #include "printer.h"
 
-//
-//int getNumberDigits(int num) {
-//    int temp = num;
-//    int numDigits = 0;
-//    while (temp > 0) {
-//        temp = temp / 10;
-//        numDigits++;
-//    }
-//    return numDigits;
-//}
-//
-////void getSizes(char *dir,Options *options,Sizes * sizes) {
-////    struct stat sb;
-////    if (lstat(dir, &sb) == -1) {
-////        perror("lstat");
-////    }
-////
-////    if (options->i) {
-////        int inodeLength;
-////        if ((inodeLength = getNumberDigits(sb.st_ino)) > sizes->inodeLength) {
-////            sizes->inodeLength = inodeLength;
-////        }
-////    }
-////
-//////    struct passwd *pw = getpwuid(sb.st_uid);
-//////    struct group *gr = getgrgid(sb.st_uid);
-////
-//////    printf("%ld ", sb.st_nlink);
-//////    printf("%s ", pw->pw_name);
-//////    printf("%s ", gr->gr_name);
-//////    printf("%ld ", sb.st_size);
-////
-////
-////
-////
-////}
+// Function accepts an int, and returns the number of digits in the int
+static int getNumberDigits(int num) {
+    int temp = num;
+    int numDigits = 0;
+    while (temp > 0) {
+        temp = temp / 10;
+        numDigits++;
+    }
+    return numDigits;
+}
 
-char isDir(struct stat file) {
+// Function accepts a dir, options and size struct, and changes the values in the sizes struct if the lstat values for dir have longer length
+void getSizes(char *dir,Options *options,Sizes * sizes) {
+    struct stat sb;
+    if (lstat(dir, &sb) == -1) {
+        perror("lstat");
+    }
+
+    if (options->i) {
+        int inodeLength = 0;
+        if ((inodeLength = getNumberDigits(sb.st_ino)) > sizes->inodeLength) {
+            sizes->inodeLength = inodeLength;
+        }
+    }
+
+    if (options->l) {
+        int length = 0;
+
+        struct passwd *pw = getpwuid(sb.st_uid);
+        struct group *gr = getgrgid(sb.st_uid);
+
+        if ((length = getNumberDigits(sb.st_nlink)) > sizes->linksLength) {
+            sizes->linksLength = length;
+            length = 0;
+        }
+
+        if ((length = strlen(pw->pw_name)) > sizes->userLength) {
+            sizes->userLength = length;
+            length = 0;
+        }
+
+        if ((length = strlen(gr->gr_name)) > sizes->groupLength) {
+            sizes->groupLength = length;
+            length = 0;
+        }
+
+        if ((length = getNumberDigits(sb.st_size)) > sizes->sizeLength) {
+            sizes->sizeLength = length;
+        }
+    }
+}
+
+static char isDir(struct stat file) {
     if (S_ISDIR(file.st_mode)) {
         return 'd';
     } else {
@@ -54,7 +69,7 @@ char isDir(struct stat file) {
     }
 }
 
-char isOwnerRead(struct stat file) {
+static char isOwnerRead(struct stat file) {
     if (file.st_mode & S_IRUSR) {
         return 'r';
     } else {
@@ -62,7 +77,7 @@ char isOwnerRead(struct stat file) {
     }
 }
 
-char isOwnerWrite(struct stat file) {
+static char isOwnerWrite(struct stat file) {
     if (file.st_mode & S_IWUSR) {
         return 'w';
     } else {
@@ -70,7 +85,7 @@ char isOwnerWrite(struct stat file) {
     }
 }
 
-char isOwnerExecute(struct stat file) {
+static char isOwnerExecute(struct stat file) {
     if (file.st_mode & S_IXUSR ) {
         return 'x';
     } else {
@@ -78,7 +93,7 @@ char isOwnerExecute(struct stat file) {
     }
 }
 
-char isGroupRead(struct stat file) {
+static char isGroupRead(struct stat file) {
     if (file.st_mode & S_IRGRP) {
         return 'r';
     } else {
@@ -86,7 +101,7 @@ char isGroupRead(struct stat file) {
     }
 }
 
-char isGroupWrite(struct stat file) {
+static char isGroupWrite(struct stat file) {
     if (file.st_mode &  S_IWGRP) {
         return 'w';
     } else {
@@ -94,7 +109,7 @@ char isGroupWrite(struct stat file) {
     }
 }
 
-char isGroupExecute(struct stat file) {
+static char isGroupExecute(struct stat file) {
     if (file.st_mode & S_IXGRP) {
         return 'x';
     } else {
@@ -102,7 +117,7 @@ char isGroupExecute(struct stat file) {
     }
 }
 
-char isOthersRead(struct stat file) {
+static char isOthersRead(struct stat file) {
     if (file.st_mode & S_IROTH) {
         return 'r';
     } else {
@@ -110,7 +125,7 @@ char isOthersRead(struct stat file) {
     }
 }
 
-char isOthersWrite(struct stat file) {
+static char isOthersWrite(struct stat file) {
     if (file.st_mode &  S_IWOTH) {
         return 'w';
     } else {
@@ -118,7 +133,7 @@ char isOthersWrite(struct stat file) {
     }
 }
 
-char isOthersExecute(struct stat file) {
+static char isOthersExecute(struct stat file) {
     if (file.st_mode & S_IXOTH) {
         return 'x';
     } else {
@@ -126,7 +141,7 @@ char isOthersExecute(struct stat file) {
     }
 }
 
-int print(char *dir, Options *options, char *name) {
+int print(char *dir, Options *options, char *name, Sizes *sizes) {
 
     // Removing the current directory form output
     if (strcmp(name, ".") == 0) {
@@ -150,7 +165,13 @@ int print(char *dir, Options *options, char *name) {
     }
 
     if (options->i) {
-        printf("%7ld ", (long) sb.st_ino);
+        if (sizes->inodeLength != -1) {
+            printf("%*ld ", sizes->inodeLength,(long) sb.st_ino);
+        } else {
+            printf("%ld ", (long) sb.st_ino);
+        }
+
+
     }
 
     if (options->l) {
@@ -168,27 +189,51 @@ int print(char *dir, Options *options, char *name) {
             exit(EXIT_FAILURE);
         }
 
-
         //CITATTION: https://stackoverflow.com/questions/7328327/how-to-get-files-owner-name-in-linux-using-c
         struct passwd *pw = getpwuid(sb.st_uid);
         struct group *gr = getgrgid(sb.st_uid);
 
-            printf("%c%c%c%c%c%c%c%c%c%c ",
-                   isDir(sb),
-                   isOwnerRead(sb),
-                   isOwnerWrite(sb),
-                   isOwnerExecute(sb),
-                   isGroupRead(sb),
-                   isGroupWrite(sb),
-                   isGroupExecute(sb),
-                   isOthersRead(sb),
-                   isOthersWrite(sb),
-                   isOthersExecute(sb));
+        // Printing all the varios permissiosn
+        printf("%c%c%c%c%c%c%c%c%c%c ",
+               isDir(sb),
+               isOwnerRead(sb),
+               isOwnerWrite(sb),
+               isOwnerExecute(sb),
+               isGroupRead(sb),
+               isGroupWrite(sb),
+               isGroupExecute(sb),
+               isOthersRead(sb),
+               isOthersWrite(sb),
+               isOthersExecute(sb));
+
+        // Printing the number of links
+        if (sizes->linksLength != -1) {
+            printf("%*ld ", sizes->linksLength,sb.st_nlink);
+        } else {
             printf("%ld ", sb.st_nlink);
+        }
+
+        // Printing the username
+        if (sizes->userLength != -1) {
+            printf("%*s ", sizes->userLength,pw->pw_name);
+        } else {
             printf("%s ", pw->pw_name);
+        }
+
+        // Printing the group name
+        if (sizes->groupLength != -1) {
+            printf("%*s ",sizes->groupLength, gr->gr_name);
+        } else {
             printf("%s ", gr->gr_name);
+        }
+
+        // Printing the file size
+        if (sizes->sizeLength != -1) {
+            printf("%*ld ", sizes->sizeLength,sb.st_size);
+        } else {
             printf("%ld ", sb.st_size);
-            printf("%s ", lastModified);
+        }
+        printf("%s ", lastModified);
 
 
     }

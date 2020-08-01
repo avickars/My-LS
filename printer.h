@@ -3,14 +3,16 @@
 
 typedef struct Sizes
 {
+    int inodeLength;
+    int linksLength;
     int userLength;
     int groupLength;
     int sizeLength;
-    int linksLength;
-    int inodeLength;
+
+
 } Sizes;
 
-int print(char *dir, Options *options, char *name);
+int print(char *dir, Options *options, char *name, Sizes *sizes);
 
 void getSizes(char *dir,Options *options,Sizes * sizes);
 
