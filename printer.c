@@ -5,6 +5,7 @@
 #include <grp.h> // For getgrgid()
 #include <time.h> // For ctime*()
 #include <string.h> // For strcmp
+#include <unistd.h> // For readlink
 
 #include "structures.h"
 #include "printer.h"
@@ -238,7 +239,18 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
 
     }
 
-    printf("%s \n", name);
+    // Checking if the file is a soft link
+    if (S_ISLNK(sb.st_mode) && options->l) {
+        char buf[1024];
+        int len;
+        if ((len = readlink(dir, buf, sizeof(buf)-1)) != -1) {
+            buf[len] = '\0';
+        }
+        printf("%s -> %s\n", name, buf);
+    } else {
+        printf("%s \n", name);
+    }
+
 }
 
 
