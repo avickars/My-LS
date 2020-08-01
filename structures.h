@@ -11,8 +11,4 @@ typedef struct Options
     char *path;
 } Options;
 
-
-
-
-
 #endif //CMPT300ASSIGNMENT4_STRUCTURES_H

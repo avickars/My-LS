@@ -7,6 +7,44 @@
 #include <string.h> // For strcmp
 
 #include "structures.h"
+#include "printer.h"
+
+//
+//int getNumberDigits(int num) {
+//    int temp = num;
+//    int numDigits = 0;
+//    while (temp > 0) {
+//        temp = temp / 10;
+//        numDigits++;
+//    }
+//    return numDigits;
+//}
+//
+////void getSizes(char *dir,Options *options,Sizes * sizes) {
+////    struct stat sb;
+////    if (lstat(dir, &sb) == -1) {
+////        perror("lstat");
+////    }
+////
+////    if (options->i) {
+////        int inodeLength;
+////        if ((inodeLength = getNumberDigits(sb.st_ino)) > sizes->inodeLength) {
+////            sizes->inodeLength = inodeLength;
+////        }
+////    }
+////
+//////    struct passwd *pw = getpwuid(sb.st_uid);
+//////    struct group *gr = getgrgid(sb.st_uid);
+////
+//////    printf("%ld ", sb.st_nlink);
+//////    printf("%s ", pw->pw_name);
+//////    printf("%s ", gr->gr_name);
+//////    printf("%ld ", sb.st_size);
+////
+////
+////
+////
+////}
 
 char isDir(struct stat file) {
     if (S_ISDIR(file.st_mode)) {
