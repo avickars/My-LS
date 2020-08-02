@@ -21,6 +21,24 @@ static void freeItem(void *item) {
     free(item);
 };
 
+static bool skip(struct dirent *nameList) {
+    // Removing the current directory form output
+    if (strcmp(nameList->d_name, ".") == 0) {
+        return true;
+    }
+
+    // Removing the parent directory from output
+    if (strcmp(nameList->d_name, "..") == 0) {
+        return true;
+    }
+
+    // Removing hidden files from output
+    if (nameList->d_name[0]=='.') {
+        return true;
+    }
+
+    return false;
+}
 
 
 
@@ -29,7 +47,7 @@ void read_directory(char *dir, Options *options, Sizes *sizes) {
     struct dirent **namelist;
     int numFiles;
     List directoriesList = {0 ,NULL, NULL, NULL};
-//    S_ISLNK(sb.st_mode) && options.l
+
     if (isDirectory(dir)) {
 
         struct stat sb;
@@ -52,6 +70,10 @@ void read_directory(char *dir, Options *options, Sizes *sizes) {
         // Getting the lengths of each lstat() value for print in this directory
         Sizes dirSizes = {0,0,0,0,0 , false};
         for (int i = 0; i < numFiles; ++i) {
+            // Testing if the file is something we don't want to consider in our spacing (i.e. we wont print it later), if yes lets skip it
+            if (skip(namelist[i])) {
+                continue;
+            }
             strcpy(subDirectory, dir);
             strcat(subDirectory,"/");
             strcat(subDirectory,namelist[i]->d_name);
@@ -64,11 +86,13 @@ void read_directory(char *dir, Options *options, Sizes *sizes) {
             strcat(subDirectory,"/");
             strcat(subDirectory,namelist[i]->d_name);
 
-            // If print() returns an option we don't want to print or traverse, we'll just skip it
-            if (print(subDirectory, options, namelist[i]->d_name, &dirSizes) == -1) {
-                free(namelist[i]);
+            // Testing if the file is something we don't want to print, if yes lets skip it
+            if (skip(namelist[i])) {
                 continue;
+            } else {
+                print(subDirectory, options, namelist[i]->d_name, &dirSizes);
             }
+
 
             // If we are doing a recursive traversal
             if (options->R) {

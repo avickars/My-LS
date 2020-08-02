@@ -207,21 +207,6 @@ static char isOthersExecute(struct stat file) {
 }
 
 int print(char *dir, Options *options, char *name, Sizes *sizes) {
-    // Removing the current directory form output
-    if (strcmp(name, ".") == 0) {
-        return -1;
-    }
-
-    // Removing the parent directory from output
-    if (strcmp(name, "..") == 0) {
-        return -1;
-    }
-
-    // Removing hidden files from output
-    if (name[0]=='.') {
-        return -1;
-    }
-
     struct stat sb;
     if (lstat(dir, &sb) == -1) {
         perror("lstat");
