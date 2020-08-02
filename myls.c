@@ -7,6 +7,7 @@
 #include "list.h"
 #include "sort.h"
 #include <stdio.h>
+#include <sys/stat.h> // For stat
 
 #include "printer.h"
 
@@ -23,7 +24,7 @@ int main(int numArgs, char *args[]) {
     int firstLocationArg = arguements_handler(&options, numArgs, args);
 
     // Defining a dummy struct to hold the max lengths of the lstat values.  I don't actually need it, but I need to pass it
-    Sizes dummySizes = {-1, -1,-1,-1,-1};
+    Sizes dummySizes = {-1, -1,-1,-1,-1, false};
 
     // Reading the directory
     if (options.path == NULL) {
@@ -44,13 +45,28 @@ int main(int numArgs, char *args[]) {
             char *arg = (char *) malloc(strlen(args[i]) + 1);
             strcpy(arg, args[i]);
             if (isDirectory(args[i])) {
-                // Extracting any directories to be printed after
-                addNode(&directoryList, arg);
+
+                struct stat sb;
+                if (lstat(args[i], &sb) == -1) {
+                    perror("lstat");
+                    //        exit(EXIT_FAILURE);
+                }
+
+                // Testing if a directory is a soft link, if yes and l is an arguement, we print it with the files.
+                // Otherwise we print it with the directories.  Doing this to mimic ls
+                if (S_ISLNK(sb.st_mode) && options.l) {
+                    getSizes(arg, &options, &argsSizes);
+                    addNode(&argsList, arg);
+                } else {
+                    // Extracting any directories to be printed after
+                    addNode(&directoryList, arg);
+                }
             } else {
                 getSizes(arg, &options, &argsSizes);
                 addNode(&argsList, arg);
             }
         }
+
         if (argsList.size > 1) {
             // Sorting the arguements that are files
             selectionSort(&argsList);
@@ -68,8 +84,15 @@ int main(int numArgs, char *args[]) {
 //            selectionSort(&directoryList);
 
             Node *current = directoryList.head;
+            printf("_________________________-\n");
             do {
-                printf("\n%s:\n", (char *) current->item);
+                // Testing if quotes need to wrap the directory name
+                if (quotesNeeded(current->item)) {
+                    printf("\n\'%s\':\n", (char *) current->item);
+                } else {
+                    printf("\n%s:\n", (char *) current->item);
+                }
+
                 read_directory(current->item, &options, &dummySizes);
                 current = current->next;
             } while (current != NULL);

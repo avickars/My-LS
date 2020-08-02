@@ -10,6 +10,29 @@
 #include "structures.h"
 #include "printer.h"
 
+bool quotesNeeded(char *name) {
+    char *s = NULL;
+    if ((s = strchr(name, ' ')) != NULL) {
+        return true;
+    } else if ((s = strchr(name, '!')) != NULL) {
+        return true;
+    } else if ((s = strchr(name, '$')) != NULL) {
+        return true;
+    } else if ((s = strchr(name, '\'')) != NULL) {
+        return true;
+    } else if ((s = strchr(name, '^')) != NULL) {
+        return true;
+    } else if ((s = strchr(name, '&')) != NULL) {
+        return true;
+    } else if ((s = strchr(name, '(')) != NULL) {
+        return true;
+    } else if ((s = strchr(name, ')')) != NULL) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // Function accepts an int, and returns the number of digits in the int
 static int getNumberDigits(int num) {
     int temp = num;
@@ -59,12 +82,18 @@ void getSizes(char *dir,Options *options,Sizes * sizes) {
         if ((length = getNumberDigits(sb.st_size)) > sizes->sizeLength) {
             sizes->sizeLength = length;
         }
+
+        if (quotesNeeded(dir)) {
+            sizes->extraNameSpace = true;
+        }
     }
 }
 
 static char isDir(struct stat file) {
     if (S_ISDIR(file.st_mode)) {
         return 'd';
+    } else if (S_ISLNK(file.st_mode)) {
+        return 'l';
     } else {
         return '-';
     }
@@ -143,7 +172,6 @@ static char isOthersExecute(struct stat file) {
 }
 
 int print(char *dir, Options *options, char *name, Sizes *sizes) {
-
     // Removing the current directory form output
     if (strcmp(name, ".") == 0) {
         return -1;
@@ -162,6 +190,7 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
     struct stat sb;
     if (lstat(dir, &sb) == -1) {
         perror("lstat");
+        return -1;
 //        exit(EXIT_FAILURE);
     }
 
@@ -194,7 +223,7 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
         struct passwd *pw = getpwuid(sb.st_uid);
         struct group *gr = getgrgid(sb.st_uid);
 
-        // Printing all the varios permissiosn
+        // Printing all the various permissions
         printf("%c%c%c%c%c%c%c%c%c%c ",
                isDir(sb),
                isOwnerRead(sb),
@@ -234,11 +263,23 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
         } else {
             printf("%ld ", sb.st_size);
         }
-        printf("%s ", lastModified);
+
+        // Printing the date
+        // The if statements here are to account for any extra spaces needed between the date and the file name.  This is done to reflect
+        // the exact spacing of ls
+        if (quotesNeeded(dir) && sizes->extraNameSpace) {
+            printf("%-18s", lastModified);
+        } else if (sizes->extraNameSpace) {
+            printf("%-19s", lastModified);
+        } else {
+            printf("%s ", lastModified);
+        }
+
 
 
     }
 
+    // Printing the file name
     // Checking if the file is a soft link
     if (S_ISLNK(sb.st_mode) && options->l) {
         char buf[1024];
@@ -246,9 +287,23 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
         if ((len = readlink(dir, buf, sizeof(buf)-1)) != -1) {
             buf[len] = '\0';
         }
-        printf("%s -> %s\n", name, buf);
+        if (quotesNeeded(name) && quotesNeeded(buf)) {
+            printf("\'%s\' -> \'%s\'\n", name, buf);
+        } else if (quotesNeeded(name)) {
+            printf("\'%s\' -> %s\n", name, buf);
+        } else if (quotesNeeded(buf)){
+            printf("%s -> \'%s\'\n", name, buf);
+        } else {
+            printf("%s -> %s\n", name, buf);
+        }
+
     } else {
-        printf("%s \n", name);
+        if (quotesNeeded(name)) {
+            printf("\'%s\' \n", name);
+        } else {
+            printf("%s \n", name);
+        }
+
     }
 
 }

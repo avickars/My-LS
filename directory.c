@@ -29,12 +29,28 @@ void read_directory(char *dir, Options *options, Sizes *sizes) {
     struct dirent **namelist;
     int numFiles;
     List directoriesList = {0 ,NULL, NULL, NULL};
+//    S_ISLNK(sb.st_mode) && options.l
     if (isDirectory(dir)) {
+
+        struct stat sb;
+        if (lstat(dir, &sb) == -1) {
+            perror("lstat");
+            return;
+            //        exit(EXIT_FAILURE);
+        }
+        if (S_ISLNK(sb.st_mode) && options->l) {
+            // Testing if this is a soft link directory, if yes as per ls, we won't read its contents, just print it
+            print(dir, options, dir, sizes);
+            return;
+        }
+
+
+
         // Scanning the directory
         numFiles = scandir(dir, &namelist, NULL, alphasort);
 
         // Getting the lengths of each lstat() value for print in this directory
-        Sizes dirSizes = {0,0,0,0,0};
+        Sizes dirSizes = {0,0,0,0,0 , false};
         for (int i = 0; i < numFiles; ++i) {
             strcpy(subDirectory, dir);
             strcat(subDirectory,"/");
