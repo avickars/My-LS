@@ -68,7 +68,7 @@ void read_directory(char *dir, Options *options, Sizes *sizes) {
         numFiles = scandir(dir, &namelist, NULL, alphasort);
 
         // Getting the lengths of each lstat() value for print in this directory
-        Sizes dirSizes = {0,0,0,0,0 , false};
+        Sizes dirSizes = {-1,-1,-1,-1,-1 , false};
         for (int i = 0; i < numFiles; ++i) {
             // Testing if the file is something we don't want to consider in our spacing (i.e. we wont print it later), if yes lets skip it
             if (skip(namelist[i])) {
@@ -88,6 +88,8 @@ void read_directory(char *dir, Options *options, Sizes *sizes) {
 
             // Testing if the file is something we don't want to print, if yes lets skip it
             if (skip(namelist[i])) {
+                // Freeing the namelist
+                free(namelist[i]);
                 continue;
             } else {
                 print(subDirectory, options, namelist[i]->d_name, &dirSizes);
@@ -103,8 +105,11 @@ void read_directory(char *dir, Options *options, Sizes *sizes) {
                     addNode(&directoriesList, dirPath);
                 }
             }
+
+            // Freeing the namelist
             free(namelist[i]);
 
+            // Resetting subDirectory
             memset(subDirectory, 0, SIZEOFSUBDIRECTORY);
         }
         if (directoriesList.size > 0) {

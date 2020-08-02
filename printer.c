@@ -220,15 +220,13 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
         } else {
             printf("%ld ", (long) sb.st_ino);
         }
-
-
     }
 
     if (options->l) {
 
         //CITATTION: https://stackoverflow.com/questions/7328327/how-to-get-files-owner-name-in-linux-using-c
         struct passwd *pw = getpwuid(sb.st_uid);
-        struct group *gr = getgrgid(sb.st_uid);
+        struct group *gr = getgrgid(sb.st_gid);
 
         // Printing all the various permissions
         printf("%c%c%c%c%c%c%c%c%c%c ",
