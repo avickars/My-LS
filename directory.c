@@ -85,9 +85,10 @@ void read_directory(char *dir, Options *options, Sizes *sizes) {
         }
         if (directoriesList.size > 0) {
             Node *current = directoriesList.head;
+            Sizes subDirSizes = {0,0,0,0,0 , false};
             do {
                 printf("\n%s:\n", (char *)  current->item);
-                read_directory((char *) current->item, options, sizes);
+                read_directory((char *) current->item, options, &subDirSizes);
                 current = current->next;
             } while (current != NULL);
             listFree(&directoriesList, freeItem);

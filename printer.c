@@ -10,6 +10,7 @@
 #include "structures.h"
 #include "printer.h"
 
+// Function accepts a string and returns true of it needs to be contained in quotes, else returns false
 bool quotesNeeded(char *name) {
     char *s = NULL;
     if ((s = strchr(name, ' ')) != NULL) {
@@ -87,6 +88,40 @@ void getSizes(char *dir,Options *options,Sizes * sizes) {
             sizes->extraNameSpace = true;
         }
     }
+}
+
+// Function accepts a stat object and prints out the date time in the required format
+static void dateTime(struct stat sb) {
+    // CITATION: https://linux.die.net/man/3/strftime
+    char lastModified[200];
+    struct tm *tmp;
+    tmp = localtime(&sb.st_mtime);
+    if (tmp == NULL) {
+        perror("localtime");
+        exit(EXIT_FAILURE);
+    }
+    if (strftime(lastModified, sizeof(lastModified), "%b %d %G %H:%M", tmp) == 0) {
+        fprintf(stderr, "strftime returned 0");
+        exit(EXIT_FAILURE);
+    }
+
+    // Printing the month and a space
+    for (int i = 0; i < 4; ++i) {
+        printf("%c", lastModified[i]);
+    }
+
+    // Printing the day of the month, with a space if it is less than needed
+    if (tmp->tm_mday < 10) {
+        printf(" %d", tmp->tm_mday);
+    } else {
+        printf("%d", tmp->tm_mday);
+    }
+
+    // Printing the rest, (i.e. year and time)
+    for (int i = 6; i < strlen(lastModified); ++i) {
+        printf("%c", lastModified[i]);
+    }
+
 }
 
 static char isDir(struct stat file) {
@@ -205,19 +240,6 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
     }
 
     if (options->l) {
-        // Getting the date/time of the last modification
-        // CITATION: https://linux.die.net/man/3/strftime
-        char lastModified[200];
-        struct tm *tmp;
-        tmp = localtime(&sb.st_mtime);
-        if (tmp == NULL) {
-            perror("localtime");
-            exit(EXIT_FAILURE);
-        }
-        if (strftime(lastModified, sizeof(lastModified), "%b %d %G %H:%M", tmp) == 0) {
-            fprintf(stderr, "strftime returned 0");
-            exit(EXIT_FAILURE);
-        }
 
         //CITATTION: https://stackoverflow.com/questions/7328327/how-to-get-files-owner-name-in-linux-using-c
         struct passwd *pw = getpwuid(sb.st_uid);
@@ -268,11 +290,14 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
         // The if statements here are to account for any extra spaces needed between the date and the file name.  This is done to reflect
         // the exact spacing of ls
         if (quotesNeeded(dir) && sizes->extraNameSpace) {
-            printf("%-18s", lastModified);
+            dateTime(sb);
+            printf(" ");
         } else if (sizes->extraNameSpace) {
-            printf("%-19s", lastModified);
+            dateTime(sb);
+            printf("  ");
         } else {
-            printf("%s ", lastModified);
+            dateTime(sb);
+            printf(" ");
         }
 
 
