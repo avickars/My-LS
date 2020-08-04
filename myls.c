@@ -45,7 +45,6 @@ int main(int numArgs, char *args[]) {
             char *arg = (char *) malloc(strlen(args[i]) + 1);
             strcpy(arg, args[i]);
             if (isDirectory(args[i])) {
-
                 struct stat sb;
                 if (lstat(args[i], &sb) == -1) {
                     perror("lstat");
@@ -67,7 +66,7 @@ int main(int numArgs, char *args[]) {
             }
         }
 
-        if (argsList.size > 1) {
+        if (argsList.size > 0) {
             // Sorting the arguements that are files
             selectionSort(&argsList);
             Node *current = argsList.head;
