@@ -80,7 +80,7 @@ int main(int numArgs, char *args[]) {
         // If there are any directories, we'll send them to be read now
         if (directoryList.size > 0) {
             // Sorting the arguements that are directories
-//            selectionSort(&directoryList);
+            selectionSort(&directoryList);
 
             Node *current = directoryList.head;
             printf("_________________________-\n");
