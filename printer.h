@@ -1,6 +1,7 @@
 #ifndef CMPT300ASSIGNMENT4_PRINTER_H
 #define CMPT300ASSIGNMENT4_PRINTER_H
-
+#include <stdbool.h>
+#include "arguements.h"
 typedef struct Sizes
 {
     int inodeLength;

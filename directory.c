@@ -5,7 +5,6 @@
 #include <stdlib.h> // For free()
 #include <sys/stat.h> // For stat
 
-#include "structures.h"
 #include "printer.h"
 #include "list.h"
 

@@ -1,15 +1,15 @@
-#include "structures.h"
-#include "arguements.h"
-#include "directory.h"
 #include <stddef.h> // For NULL
 #include <stdlib.h> // For malloc()
 #include <string.h>
-#include "list.h"
-#include "sort.h"
+
 #include <stdio.h>
 #include <sys/stat.h> // For stat
 
 #include "printer.h"
+#include "arguements.h"
+#include "directory.h"
+#include "list.h"
+#include "sort.h"
 
 static void freeItem(void *item) {
     free(item);

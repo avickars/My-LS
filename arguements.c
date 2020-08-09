@@ -1,7 +1,6 @@
 #include <string.h> // For strlen()
-#include "structures.h"
 #include <stdio.h>
-
+#include "arguements.h"
 
 int arguements_handler(Options *options, int numArgs,char *args[]) {
     bool pastOptions = false;

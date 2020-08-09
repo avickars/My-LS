@@ -7,7 +7,7 @@
 #include <string.h> // For strcmp
 #include <unistd.h> // For readlink
 
-#include "structures.h"
+#include "arguements.h"
 #include "printer.h"
 
 // Function accepts a string and returns true of it needs to be contained in quotes, else returns false
