@@ -83,7 +83,6 @@ int main(int numArgs, char *args[]) {
             selectionSort(&directoryList);
 
             Node *current = directoryList.head;
-            printf("_________________________-\n");
             do {
                 // Testing if quotes need to wrap the directory name
                 if (quotesNeeded(current->item)) {
