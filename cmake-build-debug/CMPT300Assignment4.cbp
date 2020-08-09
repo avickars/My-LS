@@ -109,9 +109,6 @@
 		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/sort.h">
 			<Option target="CMPT300Assignment4"/>
 		</Unit>
-		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/structures.h">
-			<Option target="CMPT300Assignment4"/>
-		</Unit>
 		<Unit filename="/home/aidan/Documents/GitRepositories/CMPT300Assignment4/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
