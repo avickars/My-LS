@@ -241,7 +241,7 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
 
         // Printing the number of links
         if (sizes->linksLength != -1) {
-            printf("%*ld ", sizes->linksLength,sb.st_nlink);
+            printf("%-*ld ", sizes->linksLength,sb.st_nlink);
         } else {
             printf("%ld ", sb.st_nlink);
         }
