@@ -1,9 +1,7 @@
 #include <string.h>
-#include <stdio.h>
-
 #include "list.h"
 
-
+// Accepts a list and performs a very simple selection sort by swapping the elements in the list when needed
 void selectionSort(List *list) {
     int result;
     setCurrentToFront(list);

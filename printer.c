@@ -6,7 +6,6 @@
 #include <time.h> // For ctime*()
 #include <string.h> // For strcmp
 #include <unistd.h> // For readlink
-
 #include "arguements.h"
 #include "printer.h"
 
@@ -211,7 +210,6 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
     if (lstat(dir, &sb) == -1) {
         perror("lstat");
         return -1;
-//        exit(EXIT_FAILURE);
     }
 
     if (options->i) {

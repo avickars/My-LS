@@ -4,7 +4,6 @@
 #include <stdio.h> // For printf()
 #include <stdlib.h> // For free()
 #include <sys/stat.h> // For stat
-
 #include "printer.h"
 #include "list.h"
 

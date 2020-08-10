@@ -1,10 +1,8 @@
 #include <stddef.h> // For NULL
 #include <stdlib.h> // For malloc()
 #include <string.h>
-
 #include <stdio.h>
 #include <sys/stat.h> // For stat
-
 #include "printer.h"
 #include "arguements.h"
 #include "directory.h"
@@ -14,7 +12,6 @@
 static void freeItem(void *item) {
     free(item);
 };
-
 
 int main(int numArgs, char *args[]) {
     // Declaring a struct to record to handle the arguements
@@ -28,6 +25,10 @@ int main(int numArgs, char *args[]) {
 
     // Reading the directory
     if (options.path == NULL) {
+        // Printing the current path if we want recursion.  (Doing this to mimick ls)
+        if (options.R) {
+            printf(".:\n");
+        }
         // If no path argument was passed
         read_directory(".", &options, &dummySizes);
     } else if ((numArgs - firstLocationArg) > 1){
@@ -44,11 +45,10 @@ int main(int numArgs, char *args[]) {
         for (int i = firstLocationArg; i < numArgs; ++i) {
             char *arg = (char *) malloc(strlen(args[i]) + 1);
             strcpy(arg, args[i]);
-            if (isDirectory(args[i])) {
-                struct stat sb;
-                if (lstat(args[i], &sb) == -1) {
+            struct stat sb;
+            if (isDirectory(arg)) {
+                if (lstat(arg, &sb) == -1) {
                     perror("lstat");
-                    //        exit(EXIT_FAILURE);
                 }
 
                 // Testing if a directory is a soft link, if yes and l is an arguement, we print it with the files.
@@ -61,6 +61,12 @@ int main(int numArgs, char *args[]) {
                     addNode(&directoryList, arg);
                 }
             } else {
+                // Testing if the file exists so it won't get put on the list
+                if (lstat(arg, &sb) == -1) {
+                    perror("lstat");
+                    free(arg);
+                    continue;
+                }
                 getSizes(arg, &options, &argsSizes);
                 addNode(&argsList, arg);
             }
@@ -75,6 +81,7 @@ int main(int numArgs, char *args[]) {
                 current = current->next;
             } while (current != NULL);
             listFree(&argsList, freeItem);
+            printf("\n");
         }
 
         // If there are any directories, we'll send them to be read now
@@ -86,12 +93,13 @@ int main(int numArgs, char *args[]) {
             do {
                 // Testing if quotes need to wrap the directory name
                 if (quotesNeeded(current->item)) {
-                    printf("\n\'%s\':\n", (char *) current->item);
+                    printf("\'%s\':\n", (char *) current->item);
                 } else {
-                    printf("\n%s:\n", (char *) current->item);
+                    printf("%s:\n", (char *) current->item);
                 }
 
                 read_directory(current->item, &options, &dummySizes);
+                printf("\n");
                 current = current->next;
             } while (current != NULL);
             listFree(&directoryList, freeItem);
