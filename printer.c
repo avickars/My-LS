@@ -62,7 +62,7 @@ void getSizes(char *dir,Options *options,Sizes * sizes) {
         int length = 0;
 
         struct passwd *pw = getpwuid(sb.st_uid);
-        struct group *gr = getgrgid(sb.st_uid);
+        struct group *gr = getgrgid(sb.st_gid);
 
         if ((length = getNumberDigits(sb.st_nlink)) > sizes->linksLength) {
             sizes->linksLength = length;
