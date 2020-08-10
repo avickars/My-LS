@@ -214,9 +214,9 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
 
     if (options->i) {
         if (sizes->inodeLength != -1) {
-            printf("%*ld ", sizes->inodeLength,(long) sb.st_ino);
+            printf("%-*ld ", sizes->inodeLength,(long) sb.st_ino);
         } else {
-            printf("%ld ", (long) sb.st_ino);
+            printf("%-ld ", (long) sb.st_ino);
         }
     }
 
