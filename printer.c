@@ -34,10 +34,10 @@ bool quotesNeeded(char *name) {
 }
 
 // Function accepts an int, and returns the number of digits in the int
-static int getNumberDigits(int num) {
-    int temp = num;
+static int getNumberDigits(unsigned long long num) {
+    unsigned long long temp = num;
     int numDigits = 0;
-    while (temp != 0) {
+    while (temp > 0) {
         temp = temp / 10;
         numDigits++;
     }
@@ -214,9 +214,9 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
 
     if (options->i) {
         if (sizes->inodeLength != -1) {
-            printf("%-*ld ", sizes->inodeLength,(long) sb.st_ino);
+            printf("%*llu ", sizes->inodeLength,(unsigned long long) sb.st_ino);
         } else {
-            printf("%-ld ", (long) sb.st_ino);
+            printf("%llu ", (unsigned long long) sb.st_ino);
         }
     }
 
@@ -241,7 +241,7 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
 
         // Printing the number of links
         if (sizes->linksLength != -1) {
-            printf("%-*ld ", sizes->linksLength,sb.st_nlink);
+            printf("%*ld ", sizes->linksLength,sb.st_nlink);
         } else {
             printf("%ld ", sb.st_nlink);
         }
@@ -255,9 +255,9 @@ int print(char *dir, Options *options, char *name, Sizes *sizes) {
 
         // Printing the group name
         if (sizes->groupLength != -1) {
-            printf("%*s ",sizes->groupLength, gr->gr_name);
+            printf("%-*s ",sizes->groupLength, gr->gr_name);
         } else {
-            printf("%s ", gr->gr_name);
+            printf("%-s ", gr->gr_name);
         }
 
         // Printing the file size
