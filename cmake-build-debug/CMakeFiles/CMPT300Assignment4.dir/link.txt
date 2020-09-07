@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/CMPT300Assignment4.dir/myls.c.o CMakeFiles/CMPT300Assignment4.dir/arguements.c.o CMakeFiles/CMPT300Assignment4.dir/directory.c.o CMakeFiles/CMPT300Assignment4.dir/printer.c.o CMakeFiles/CMPT300Assignment4.dir/sort.c.o CMakeFiles/CMPT300Assignment4.dir/list.c.o  -o CMPT300Assignment4 
